@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+    .active{
+        display: block;
+    }
+</style>
+<body style="background: linear-gradient(to bottom, #68EACC 0%, #4978E8 100%); background-repeat: no-repeat; height: 100vh;">
+    
+    <div class="container">
+
+    <h1 style="margin: 20px auto; letter-spacing: 10px; font-family: sans-serif;">Daily <span style="color: orange;">work</span>-out</h1>
+    <h3 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Create your works</h3>
+    <div>
+        <input type="text" id="inp" class="form-control" style="width: 50%; margin: 20px 0;">
+        <button style="padding: 0, 40px;" class="btn btn-primary" onclick="add()">Add-List</button>
+        <button class="btn btn-danger" onclick="Delete()">Delete</button>
+       
+    </div>
+
+
+    <div class="p-5 table">
+        <table class="table table-strip">
+            <tbody id="todo" style="color: white;">
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+        let array=[{title:'first list',done:false},{title:'second List',done:false}]
+
+function display(){
+    todo.innerHTML=''
+    for (let index = 0; index < array.length; index++) {
+        
+        todo.innerHTML+=`<tr>
+        <td> ${array.title}</td>
+        <td<span class='fa fa-check text-success' id='mark${index}' style='display:${index.done==true ? 'block' :'none'} '> </span></td> 
+        <td><button class='btn btn-light border-danger' id='undo${index}' style="background: orange; color: white; border: none;" onclick='check(${index})' ${index.done==true ? 'block' :'none'}>Check</button></td>
+        <td><button class='btn btn-light border-danger' style="background: red; color: white; border: none;" onclick="Delete()">Clear</button></td>
+        </tr>`
+     }
+    }
+    function add(n){
+        array.push({title:inp.value, done:false})
+        display();
+
+    };
+    function Delete(n){
+      del=inp.value
+        array.splice(del,1)
+        display()
+    }
+
+function check(n){
+    let mark=document.getElementById('mark'+n)
+    let undo=document.getElementById('undo'+n)
+    let tog=document.getElementById('mark'+n)
+        array[n].done==true ? array[n].done=false :array[n].done=true
+
+
+
+    if(mark.style.display=='none'){
+        mark.style.display='block'
+        undo.innerHTML='Undo'
+        undo.style.background='black'
+    }
+    else {
+    undo.innerHTML='check'
+    tog.style.display='none'
+    undo.style.background='orange'
+    }
+
+}
+
+</script>
+</body>
+</html>
